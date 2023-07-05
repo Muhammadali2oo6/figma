@@ -1,4 +1,4 @@
-import HomeHeroHeader from "@/src/Components/Home/HomeHeroHeader";
+import React from "react";
 import Link from "next/link";
 
 async function getData() {
@@ -6,17 +6,19 @@ async function getData() {
   return res.json();
 }
 
-export default async function Home() {
+const page = async () => {
   const data = await getData();
 
   return (
-    <>
-      <HomeHeroHeader />
+    <div>
+      <h1 className="text-4xl py-20 text-center container mx-auto">
+        Product Page
+      </h1>
       <div className="container mx-auto flex flex-wrap justify-between py-20 gap-10">
-        {data.slice(0, 6).map((item) => {
+        {data.map((item) => {
           return (
             <>
-              <Link href={`/product/${item.id}`}>
+              <Link href={`/product/${item.id}`} className="">
                 <div className="max-w-sm overflow-hidden rounded-xl bg-white shadow-md duration-200 hover:scale-105 hover:shadow-xl">
                   <img
                     src={item.image}
@@ -40,6 +42,8 @@ export default async function Home() {
           );
         })}
       </div>
-    </>
+    </div>
   );
-}
+};
+
+export default page;
